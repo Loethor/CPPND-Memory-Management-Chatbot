@@ -1,54 +1,36 @@
-#ifndef CHATLOGIC_H_
-#define CHATLOGIC_H_
+#ifndef GRAPHEDGE_H_
+#define GRAPHEDGE_H_
 
 #include <vector>
 #include <string>
-#include "chatgui.h"
 
-// forward declarations
-class ChatBot;
-class GraphEdge;
-class GraphNode;
+class GraphNode; // forward declaration
 
-class ChatLogic
+class GraphEdge
 {
 private:
-    //// STUDENT CODE
-    ////
-
-    // data handles (owned)
-    std::vector<std::unique_ptr<GraphNode>> _nodes;
-    //std::vector<std::unique_ptr<GraphEdge>> _edges;
-
-    ////
-    //// EOF STUDENT CODE
-
     // data handles (not owned)
-    GraphNode *_currentNode;
-    ChatBot *_chatBot;
-    ChatBotPanelDialog *_panelDialog;
+    GraphNode *_childNode;
+    GraphNode *_parentNode;
 
-    // proprietary type definitions
-    typedef std::vector<std::pair<std::string, std::string>> tokenlist;
-
-    // proprietary functions
-    template <typename T>
-    void AddAllTokensToElement(std::string tokenID, tokenlist &tokens, T &element);
+    // proprietary members
+    int _id;
+    std::vector<std::string> _keywords; // list of topics associated with this edge
+    
 
 public:
-    // constructor / destructor
-    ChatLogic();
-    ~ChatLogic();
+    // constructor / desctructor
+    GraphEdge(int id);
 
     // getter / setter
-    void SetPanelDialogHandle(ChatBotPanelDialog *panelDialog);
-    void SetChatbotHandle(ChatBot *chatbot);
+    int GetID() { return _id; }
+    void SetChildNode(GraphNode *childNode);
+    void SetParentNode(GraphNode *parentNode);
+    GraphNode *GetChildNode() { return _childNode; }
+    std::vector<std::string> GetKeywords() { return _keywords; }
 
     // proprietary functions
-    void LoadAnswerGraphFromFile(std::string filename);
-    void SendMessageToChatbot(std::string message);
-    void SendMessageToUser(std::string message);
-    wxBitmap *GetImageFromChatbot();
+    void AddToken(std::string token);
 };
 
-#endif /* CHATLOGIC_H_ */
+#endif /* GRAPHEDGE_H_ */
