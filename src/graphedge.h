@@ -1,36 +1,54 @@
-#ifndef GRAPHEDGE_H_
-#define GRAPHEDGE_H_
+#ifndef CHATLOGIC_H_
+#define CHATLOGIC_H_
 
 #include <vector>
 #include <string>
+#include "chatgui.h"
 
-class GraphNode; // forward declaration
+// forward declarations
+class ChatBot;
+class GraphEdge;
+class GraphNode;
 
-class GraphEdge
+class ChatLogic
 {
 private:
+    //// STUDENT CODE
+    ////
+
+    // data handles (owned)
+    std::vector<std::unique_ptr<GraphNode>> _nodes;
+    //std::vector<std::unique_ptr<GraphEdge>> _edges;
+
+    ////
+    //// EOF STUDENT CODE
+
     // data handles (not owned)
-    GraphNode *_childNode;
-    GraphNode *_parentNode;
+    GraphNode *_currentNode;
+    ChatBot *_chatBot;
+    ChatBotPanelDialog *_panelDialog;
 
-    // proprietary members
-    int _id;
-    std::vector<std::string> _keywords; // list of topics associated with this edge
-    
-
-public:
-    // constructor / desctructor
-    GraphEdge(int id);
-
-    // getter / setter
-    int GetID() { return _id; }
-    void SetChildNode(GraphNode *childNode);
-    void SetParentNode(GraphNode *parentNode);
-    GraphNode *GetChildNode() { return _childNode; }
-    std::vector<std::string> GetKeywords() { return _keywords; }
+    // proprietary type definitions
+    typedef std::vector<std::pair<std::string, std::string>> tokenlist;
 
     // proprietary functions
-    void AddToken(std::string token);
+    template <typename T>
+    void AddAllTokensToElement(std::string tokenID, tokenlist &tokens, T &element);
+
+public:
+    // constructor / destructor
+    ChatLogic();
+    ~ChatLogic();
+
+    // getter / setter
+    void SetPanelDialogHandle(ChatBotPanelDialog *panelDialog);
+    void SetChatbotHandle(ChatBot *chatbot);
+
+    // proprietary functions
+    void LoadAnswerGraphFromFile(std::string filename);
+    void SendMessageToChatbot(std::string message);
+    void SendMessageToUser(std::string message);
+    wxBitmap *GetImageFromChatbot();
 };
 
-#endif /* GRAPHEDGE_H_ */
+#endif /* CHATLOGIC_H_ */

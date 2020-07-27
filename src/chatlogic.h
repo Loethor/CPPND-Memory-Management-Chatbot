@@ -20,7 +20,6 @@ private:
     std::vector<std::unique_ptr<GraphNode>> _nodes;
     //std::vector<std::unique_ptr<GraphEdge>> _edges;
 
-
     ////
     //// EOF STUDENT CODE
 
