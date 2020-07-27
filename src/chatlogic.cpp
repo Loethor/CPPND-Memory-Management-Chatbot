@@ -16,13 +16,12 @@ ChatLogic::ChatLogic()
 {
     //// STUDENT CODE
     ////
-
     std::cout << "ChatLogic Constructor" << std::endl;
+    // create instance of chatbot
+    //_chatBot = new ChatBot("../images/chatbot.png");
+    // ChatBot chatBot("../images/chatbot.png");
 
-
-    // // create instance of chatbot
-    // _chatBot = new ChatBot("../images/chatbot.png");
-
+    // _chatBot = &chatBot;
     // // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
     // _chatBot->SetChatLogicHandle(this);
 
@@ -34,20 +33,17 @@ ChatLogic::~ChatLogic()
 {
     //// STUDENT CODE
     ////
-
     std::cout << "ChatLogic Destructor" << std::endl;
+    // delete chatbot instance
+    //delete _chatBot;
 
-
-    // // delete chatbot instance
-    // delete _chatBot;
-
-    // // delete all nodes
+    // delete all nodes
     // for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
     // {
     //     delete *it;
     // }
 
-    // // delete all edges
+    // delete all edges
     // for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
     // {
     //     delete *it;
@@ -119,10 +115,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
             auto type = std::find_if(tokens.begin(), tokens.end(), [](const std::pair<std::string, std::string> &pair) { return pair.first == "TYPE"; });
             if (type != tokens.end())
             {
-                // check for id
-                auto idToken = std::find_if(tokens.begin(), tokens.end(), [](const std::pair<std::string, std::string> &pair) { return pair.first == "ID"; });
-                if (idToken != tokens.end())
-                {
                 // check for id
                 auto idToken = std::find_if(tokens.begin(), tokens.end(), [](const std::pair<std::string, std::string> &pair) { return pair.first == "ID"; });
                 if (idToken != tokens.end())
